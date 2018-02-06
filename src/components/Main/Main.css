@@ -1,0 +1,23 @@
+/* Creates a sticky footer */
+.main-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-placeholder {
+  width: 100%;
+  height: 53px;
+  margin-bottom: 0.5em;
+  background: #7F56C5;
+}
+
+.main-content {
+  width: 92.8%;
+  margin: 0 auto;
+  flex: 1 0 auto;
+}
+
+.main-footer {
+  flex-shrink: 0;
+}
