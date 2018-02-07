@@ -1,0 +1,47 @@
+.option-group {
+  display: flex;
+  align-items: baseline;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.015em;
+}
+
+.option-group.sort-by h2 {
+  font-size: inherit;
+}
+
+.option-group.items-per-page h2 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.dropdown-panel {
+  min-width: 7rem;
+  margin: -0.2rem -0.1rem;
+  padding: 0.25rem;
+  position: absolute;
+  border-radius: 3px 3px 0 0;
+  z-index: 1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  background: rgba(245, 245, 245, 0.973);
+}
+
+.dropdown-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.dropdown-panel ul li {
+  padding: 0.35rem 0.2rem;
+  border-radius: 3px;
+}
+
+.dropdown-panel ul li:hover {
+
+  color: #1DAFE9;
+  background: rgb(235, 235, 235);
+}
