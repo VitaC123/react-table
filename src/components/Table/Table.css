@@ -31,22 +31,7 @@
   justify-content: space-between;
 }
 
-.option-group {
-  display: flex;
-  align-items: baseline;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.015em;
-}
 
-.option-group.sort-by h2 {
-  font-size: inherit;
-}
-
-.option-group.items-per-page h2 {
-  font-size: inherit;
-  font-weight: inherit;
-}
 
 .option-group.pagination h2{
   font-size: 0.875rem;
@@ -66,6 +51,7 @@ button {
   text-transform: capitalize;
   cursor: pointer;
   color: #1DAFE9;
+  outline: none;
   background: transparent;
 }
 
@@ -99,13 +85,23 @@ tr {
 thead tr {
   font-weight: 700;
   text-transform: capitalize;
+  cursor: default;
   color: #292651;
   background: #CACBCE;
+}
+
+tr .wide {
+  min-width: 10rem;
 }
 
 tbody tr {
   font-weight: 400;
   color: #808285;
+  background: #F7F7F7;
+}
+
+tbody tr:nth-child(even) {
+  background: #F0F0F0;
 }
 
 th, td {
