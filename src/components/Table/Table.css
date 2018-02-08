@@ -7,14 +7,14 @@
   color: #7F56C5;
 }
 
-.table-heading {
+.table-header-text {
   font-size: 1rem;
   font-weight: 400;
 }
 
-.table-heading:after {
+.table-header-text:after {
   content: '|';
-  padding: 0 0.38rem 0 0.42rem;
+  padding: 0 0.38rem 0 0.5rem;
   font-size: 1.2rem;
   font-weight: 300;
   color: #BCBEC0;
@@ -31,9 +31,10 @@
   justify-content: space-between;
 }
 
-
-
-.option-group.pagination h2{
+.option-group.pagination h2 {
+  min-width: 5.85rem;
+  margin-right: 0.22rem;
+  text-align: right;
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -43,27 +44,15 @@
   font-weight: 400;
 }
 
-button {
-  margin: 0 0.2rem;
-  padding: 0;
-  font-size: inherit;
-  border: none;
-  text-transform: capitalize;
-  cursor: pointer;
-  color: #1DAFE9;
-  outline: none;
-  background: transparent;
-}
-
-button .fa-sort-down {
+.button-transparent .fa-sort-down {
   margin-left: 0.15rem;
   font-size: 1.1rem;
 }
 
 .option-group.pagination button {
-  margin: 0 0.29rem 0 0.71rem;
-  /* Transform to match Font Awesome's "pro" chevron */
-  transform: scale(2, 1);
+  margin-left: 0.6rem;
+  padding: 0.5rem 0.03rem;
+  font-size: 0.92rem;
 }
 
 .table-container {
@@ -78,34 +67,44 @@ table {
 }
 
 tr {
-  height: 1.882rem;
+  height: 1.884rem;
   font-size: 0.75rem;
 }
 
-thead tr {
+th, td {
+  min-width: 5rem;
+  padding: 0.55rem 0.825rem;
+  text-align: left;
+}
+
+.table-head-row {
   font-weight: 700;
+  letter-spacing: 0.0196rem;
   text-transform: capitalize;
-  cursor: default;
   color: #292651;
   background: #CACBCE;
 }
 
-tr .wide {
+.table-heading {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.table-heading:active {
+  background: rgba(188, 185, 192, 0.726);
+  transition: none;
+}
+
+.table-heading.extra-wide {
   min-width: 10rem;
 }
 
-tbody tr {
+.table-body-row {
   font-weight: 400;
   color: #808285;
   background: #F7F7F7;
 }
 
-tbody tr:nth-child(even) {
+.table-body-row:nth-child(even) {
   background: #F0F0F0;
-}
-
-th, td {
-  min-width: 5rem;
-  padding: 0 0.8rem;
-  text-align: left;
 }

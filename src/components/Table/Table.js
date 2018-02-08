@@ -84,7 +84,7 @@ export default class Table extends Component {
 
     const tableHeadings = columns.map(column => (
       <th
-        className={column === 'address' ? 'extra-wide' : ''}
+        className={column === 'address' ? 'table-heading extra-wide' : 'table-heading'}
         onClick={() => this.makeDropdownSelection(column)}
         key={column}
       >
@@ -100,7 +100,7 @@ export default class Table extends Component {
       <div>
         <div className='table-header'>
           <section className='left'>
-            <h1 className='table-heading'>List of Awesome</h1>
+            <h1 className='table-header-text'>List of Awesome</h1>
             <Dropdown
               heading='Sort by'
               customClass='sort-by'
@@ -121,8 +121,18 @@ export default class Table extends Component {
             <div className='option-group pagination'>
               <h2>{display.min}-{display.max} <span>of</span> {list.length}</h2>
               <div>
-                <button onClick={() => this.changePage('previous')}><i className='fas fa-chevron-left' /></button>
-                <button onClick={() => this.changePage('next')}><i className='fas fa-chevron-right' /></button>
+                <button
+                  className='button-transparent'
+                  onClick={() => this.changePage('previous')}
+                >
+                  <i className='fas fa-chevron-left' />
+                </button>
+                <button
+                  className='button-transparent'
+                  onClick={() => this.changePage('next')}
+                >
+                  <i className='fas fa-chevron-right' />
+                </button>
               </div>
             </div>
           </section>
@@ -131,7 +141,7 @@ export default class Table extends Component {
         <div className='table-container'>
           <table>
             <thead>
-              <tr>
+              <tr className='table-head-row'>
                 {tableHeadings}
               </tr>
             </thead>

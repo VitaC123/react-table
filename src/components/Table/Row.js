@@ -4,7 +4,7 @@ import React from 'react';
 const Row = props => {
   const { firstName, lastName, country, street, city, state, zip, phone } = props;
   return (
-    <tr>
+    <tr className='table-body-row'>
       <td>{firstName}</td>
       <td>{lastName}</td>
       <td>{country}</td>
