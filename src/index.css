@@ -5,6 +5,12 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: white;
-  font-family: 'Roboto', 'Times New Roman', Times, serif;
+  background: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+}
+
+.list-unstyled {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
