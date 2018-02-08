@@ -1,3 +1,4 @@
+/* Using 17px to match screenshots */
 html {
   font-size: 17px;
 }
@@ -5,8 +6,9 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: #FFFFFF;
   font-family: 'Roboto', sans-serif;
+  color: #7F56C5;
+  background: #FFFFFF;
 }
 
 .list-unstyled {
