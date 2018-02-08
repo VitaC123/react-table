@@ -9,7 +9,7 @@ import './Table.css';
 export default class Table extends Component {
   constructor(props) {
     super(props);
-    this.changeSelection = this.changeSelection.bind(this);
+    this.makeDropdownSelection = this.makeDropdownSelection.bind(this);
     this.changePage = this.changePage.bind(this);
     this.state = {
       list: [],
@@ -23,11 +23,18 @@ export default class Table extends Component {
       list: sortHelper.sortList(mockAjaxResponse, 'last name')
     });
   }
-  changeSelection(option) {
+  makeDropdownSelection(option) {
     const { sortBy, list } = this.state;
+
+    // Toggles acceding/descending
+    if (option === sortBy) {
+      return this.setState({ list: list.reverse() });
+    }
+
+    // Items per page
     if (typeof option === 'number') {
       const { min } = this.state.display;
-      if (option + min > list.length) { // this code duplicated below
+      if (option + min > list.length) {
         return this.setState({
           itemsPerPage: option,
           display: { min: list.length - option + 1, max: list.length }
@@ -38,11 +45,8 @@ export default class Table extends Component {
         display: { min, max: min + option - 1 }
       });
     }
-    if (option === sortBy) {
-      return this.setState({
-        list: list.reverse()
-      });
-    }
+
+    // Sort by
     this.setState({
       list: sortHelper.sortList(this.state.list, option),
       sortBy: option
@@ -51,6 +55,7 @@ export default class Table extends Component {
   changePage(action) {
     const { itemsPerPage, list } = this.state;
     const { min, max } = this.state.display;
+
     if (action === 'next') {
       if (max + itemsPerPage > list.length) {
         return this.setState({
@@ -61,6 +66,7 @@ export default class Table extends Component {
         display: { min: min + itemsPerPage, max: max + itemsPerPage }
       });
     }
+
     if (action === 'previous') {
       if (min - itemsPerPage < 1) {
         return this.setState({
@@ -78,8 +84,8 @@ export default class Table extends Component {
 
     const tableHeadings = columns.map(column => (
       <th
-        className={column === 'address' ? 'wide' : ''}
-        onClick={() => this.changeSelection(column)}
+        className={column === 'address' ? 'extra-wide' : ''}
+        onClick={() => this.makeDropdownSelection(column)}
         key={column}
       >
         {column}
@@ -99,7 +105,7 @@ export default class Table extends Component {
               heading='Sort by'
               customClass='sort-by'
               options={columns}
-              handleSelection={this.changeSelection}
+              handleSelection={this.makeDropdownSelection}
               selection={sortBy}
             />
           </section>
@@ -109,7 +115,7 @@ export default class Table extends Component {
               heading='items per page'
               customClass='items-per-page'
               options={[5, 10, 25, 50, 75, 100]}
-              handleSelection={this.changeSelection}
+              handleSelection={this.makeDropdownSelection}
               selection={itemsPerPage}
             />
             <div className='option-group pagination'>
