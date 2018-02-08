@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import mockAjaxResponse from '../../MOCK_DATA.json';
+import sortHelper from './sortHelper';
 import Dropdown from './Dropdown';
 import Row from './Row';
 import './Table.css';
@@ -8,7 +9,6 @@ import './Table.css';
 export default class Table extends Component {
   constructor(props) {
     super(props);
-    this.sortList = this.sortList.bind(this);
     this.changeSelection = this.changeSelection.bind(this);
     this.changePage = this.changePage.bind(this);
     this.state = {
@@ -20,13 +20,19 @@ export default class Table extends Component {
   }
   componentDidMount() {
     this.setState({
-      list: this.sortList(mockAjaxResponse, 'last name')
+      list: sortHelper.sortList(mockAjaxResponse, 'last name')
     });
   }
   changeSelection(option) {
     const { sortBy, list } = this.state;
     if (typeof option === 'number') {
       const { min } = this.state.display;
+      if (option + min > list.length) { // this code duplicated below
+        return this.setState({
+          itemsPerPage: option,
+          display: { min: list.length - option + 1, max: list.length }
+        });
+      }
       return this.setState({
         itemsPerPage: option,
         display: { min, max: min + option - 1 }
@@ -38,53 +44,9 @@ export default class Table extends Component {
       });
     }
     this.setState({
-      list: this.sortList(this.state.list, option),
+      list: sortHelper.sortList(this.state.list, option),
       sortBy: option
     });
-  }
-  sortList(list, by) {
-    const key = by
-      .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) => index === 0 ? letter.toLowerCase() : letter.toUpperCase())
-      .replace(/\s+/g, '');
-
-    const numerical = (a, b) => (a[key] - b[key]);
-    const alphabetical = (a, b) => {
-      const nameA = a[key].toLowerCase();
-      const nameB = b[key].toLowerCase();
-      if (nameA < nameB) return -1;
-      if (nameA > nameB) return 1;
-      return 0;
-    };
-
-    if (by === 'zip') {
-      return list.sort(numerical);
-    }
-    if (by === 'address') {
-      return list.sort((a, b) => {
-        const houseA = a.street.split(' ');
-        const houseB = b.street.split(' ');
-
-        const houseNumA = parseInt(houseA[0], 10);
-        const houseNumB = parseInt(houseB[0], 10);
-        if (houseNumA !== houseNumB) {
-          return houseNumA - houseNumB
-        } else {
-          // compare street names
-          const streetA = houseA[1].toLowerCase();
-          const streetB = houseB[1].toLowerCase();
-          const streetAInt = parseInt(streetA, 10);
-          const streetBInt = parseInt(streetB, 10);
-          // handle comparison if street name contains a number
-          if (streetAInt >= 0 && streetBInt >= 0) return streetAInt - streetBInt;
-          if (streetBInt >= 0) return 1;
-          // handle comparison alphabetically
-          if (streetA < streetB) return -1;
-          if (streetA > streetB) return 1;
-          return 0;
-        }
-      });
-    }
-    return list.sort(alphabetical);
   }
   changePage(action) {
     const { itemsPerPage, list } = this.state;
@@ -92,7 +54,7 @@ export default class Table extends Component {
     if (action === 'next') {
       if (max + itemsPerPage > list.length) {
         return this.setState({
-          display: { min: list.length - itemsPerPage, max: list.length }
+          display: { min: list.length - itemsPerPage + 1, max: list.length }
         });
       }
       this.setState({
@@ -110,7 +72,6 @@ export default class Table extends Component {
       });
     }
   }
-
   render() {
     const { list, display, sortBy, itemsPerPage } = this.state;
     const columns = ['first name', 'last name', 'country', 'address', 'city', 'state', 'zip', 'phone'];
@@ -125,7 +86,7 @@ export default class Table extends Component {
       </th>
     ));
 
-    const rows = list.slice(display.min, display.max).map(customer => (
+    const rows = list.slice(display.min - 1, display.max).map(customer => (
       <Row {...customer} key={customer.phone} />
     ));
 
@@ -151,9 +112,8 @@ export default class Table extends Component {
               handleSelection={this.changeSelection}
               selection={itemsPerPage}
             />
-
             <div className='option-group pagination'>
-              <h2>{display.min} - {display.max} <span>of</span> {list.length}</h2>
+              <h2>{display.min}-{display.max} <span>of</span> {list.length}</h2>
               <div>
                 <button onClick={() => this.changePage('previous')}><i className='fas fa-chevron-left' /></button>
                 <button onClick={() => this.changePage('next')}><i className='fas fa-chevron-right' /></button>
@@ -169,7 +129,6 @@ export default class Table extends Component {
                 {tableHeadings}
               </tr>
             </thead>
-
             <tbody>
               {rows}
             </tbody>
