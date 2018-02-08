@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import Main from './components/Main/Main';
 import Spec from './wireframes/UI_UX_Specs_01.png';
+
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <BrowserRouter>
         {/* <img
           style={{
             width: '100%',
@@ -17,7 +19,7 @@ class App extends Component {
         /> */}
 
         <Main />
-      </div>
+      </BrowserRouter>
     );
   }
 }

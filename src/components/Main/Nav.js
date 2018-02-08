@@ -1,25 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './Nav.css';
 
-export default class Nav extends Component {
-  render() {
-    const pages = ['nav item 1', 'nav item 2', 'nav item 3'];
-    const navItems = pages.map(page => (
+
+const Nav = props => {
+  const { pages, activePage } = props;
+  const navItems = pages.map(page => {
+    const path = `/${page.replace(/\s/g, '-')}`;
+    const linkClasses = path === activePage ? 'nav-item-link active-page' : 'nav-item-link';
+    return (
       <li key={page}>
-        <a className='nav-item-link' href={'#'}>
+        <Link className={linkClasses} to={path}>
           <div className='nav-item-text'>
             {page}
           </div>
-        </a>
+        </Link>
       </li>
-    ));
-
-    return (
-      <nav className='nav'>
-        <ul className='list-unstyled nav-items-list'>
-          {navItems}
-        </ul>
-      </nav>
     );
-  }
-}
+  });
+
+  return (
+    <nav className='nav'>
+      <ul className='list-unstyled nav-items-list'>
+        {navItems}
+      </ul>
+    </nav>
+  );
+};
+
+export default Nav;
