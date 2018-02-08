@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Dropdown.css';
 
+
 export default class Dropdown extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +39,7 @@ export default class Dropdown extends Component {
       <div>
         <div className={`option-group ${customClass}`}>
           <h2>{heading}:</h2>
-          <button onClick={this.toggleOpen}>
+          <button className='button-transparent' onClick={this.toggleOpen}>
             {selection} <i className='fas fa-sort-down' />
           </button>
         </div>
